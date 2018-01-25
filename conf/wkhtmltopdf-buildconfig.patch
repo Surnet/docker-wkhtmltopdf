@@ -1,0 +1,21 @@
+From e3201cbc3802c353805ad7d1a0f884aaaa33453f Mon Sep 17 00:00:00 2001
+From: root <daniel.mueller@surnet.ch>
+Date: Sat, 15 Jul 2017 15:45:09 +0000
+Subject: [PATCH] Build wkhtmltopdf only
+
+---
+ wkhtmltopdf.pro | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/wkhtmltopdf.pro b/wkhtmltopdf.pro
+index 93bce4e..fe4f2b4 100644
+--- a/wkhtmltopdf.pro
++++ b/wkhtmltopdf.pro
+@@ -18,4 +18,4 @@
+ TEMPLATE = subdirs
+
+ CONFIG += ordered
+-SUBDIRS = src/lib src/pdf src/image
++SUBDIRS = src/pdf
+--
+2.8.5
