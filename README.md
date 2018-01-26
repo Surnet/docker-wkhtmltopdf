@@ -1,7 +1,8 @@
 # docker-wkhtmltopdf
 
 This repo contains scripts to create docker images which will be available in multiple variants.
-The purpose is to keep them as small as possible while delivering all functions.
+
+The purpose is to publish docker images with a working and patched wkhtmltopdf installation and keep them as small as possible while delivering all functions.
 
 ## Naming
 
@@ -33,7 +34,7 @@ e.g. `3.6-0.12.4-small`
 
 ## Editions
 
-There are two editions available for each container.
+There are two editions available for each version.
 
 - `small` contains only wkhtmltopdf. This should be sufficient for most use-cases
 - `full` contains wkhtmltopdf, wkhtmltoimage and the libraries.
