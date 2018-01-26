@@ -48,7 +48,7 @@ There are two editions available for each version.
 
 This image can be used as a base for your project or directly used via bash.
 
-For available versions please click [here](https://hub.docker.com/r/surnet/alpine-wkhtmltopdf/tags/).
+For a list of available versions please click [here](https://hub.docker.com/r/surnet/alpine-wkhtmltopdf/tags/).
 If a version you would like is missing please open an issue on this repo.
 
 ```yaml
@@ -66,7 +66,7 @@ docker run surnet/alpine-wkhtmltopdf:<version> google.com - > test.pdf
 
 This image can be used as a base for your NodeJS project.
 
-For available versions please click [here](https://hub.docker.com/r/surnet/alpine-node-wkhtmltopdf/tags/).
+For a list of available versions please click [here](https://hub.docker.com/r/surnet/alpine-node-wkhtmltopdf/tags/).
 If a version you would like is missing please open an issue on this repo.
 
 ```yaml
@@ -80,7 +80,7 @@ FROM surnet/alpine-node-wkhtmltopdf:<version>
 
 This image can be used as a base for your Python project.
 
-For available versions please click [here](https://hub.docker.com/r/surnet/alpine-python-wkhtmltopdf/tags/).
+For a list of available versions please click [here](https://hub.docker.com/r/surnet/alpine-python-wkhtmltopdf/tags/).
 If a version you would like is missing please open an issue on this repo.
 
 ```yaml
