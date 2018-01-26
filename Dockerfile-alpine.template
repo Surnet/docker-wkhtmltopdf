@@ -1,8 +1,8 @@
 # Image
-FROM alpine:3.6
+FROM %%IMAGE%%
 
 # Environment variables
-ENV WKHTMLTOX_VERSION=0.12.4
+ENV WKHTMLTOX_VERSION=%%WKHTMLTOXVERSION%%
 
 # Copy patches
 RUN mkdir -p /tmp/patches
@@ -38,7 +38,7 @@ RUN apk add --no-cache \
 && git checkout tags/$WKHTMLTOX_VERSION \
 \
 # Apply patches
-&& patch -i /tmp/patches/wkhtmltopdf-buildconfig.patch \
+%%EDITION%%
 && cd /tmp/wkhtmltopdf/qt \
 && patch -p1 -i /tmp/patches/qt-musl.patch \
 && patch -p1 -i /tmp/patches/qt-musl-iconv-no-bom.patch \
@@ -162,3 +162,5 @@ RUN apk add --no-cache \
 # Clean up when done
 && rm -rf /tmp/* \
 && apk del .build-deps
+
+%%END%%
