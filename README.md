@@ -42,8 +42,8 @@ There are two editions available for each container.
 
 ### surnet/alpine-wkhtmltopdf
 
-[![Docker Stars](https://img.shields.io/docker/stars/surnet/alpine-node-wkhtmltopdf.svg)](https://hub.docker.com/r/surnet/alpine-wkhtmltopdf/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/surnet/alpine-node-wkhtmltopdf.svg)](https://hub.docker.com/r/surnet/alpine-wkhtmltopdf/)
+[![Docker Stars](https://img.shields.io/docker/stars/surnet/alpine-wkhtmltopdf.svg)](https://hub.docker.com/r/surnet/alpine-wkhtmltopdf/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/surnet/alpine-wkhtmltopdf.svg)](https://hub.docker.com/r/surnet/alpine-wkhtmltopdf/)
 
 This image can be used as a base for your project or directly used via bash.
 
