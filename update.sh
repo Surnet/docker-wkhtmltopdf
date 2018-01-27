@@ -7,6 +7,17 @@ function killgroup() {
   kill 0
 }
 
+function generated_warning() {
+	cat <<-EOH
+		#
+		# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
+		#
+		# PLEASE DO NOT EDIT IT DIRECTLY.
+		#
+
+	EOH
+}
+
 function docker_tag_exists() {
   curl --silent -f -lSL https://index.docker.io/v1/repositories/$1/tags/$2 &> /dev/null
 }
@@ -24,28 +35,14 @@ for version in \
 
     # Supported base images
     for image in \
-      alpine:3.6 \
+      alpine:{3.6,3.7} \
       node:{8.9.4,9.4.0}-alpine \
-      python:3.5.3-alpine \
+      python:3.6.4-alpine3.7 \
     ; do
       # Parse image string
       base="${image%%:*}"
       baseVersion="${image##*:}"
       baseVersionClean="${baseVersion%%-*}"
-      if [ "${baseVersion##*-}" == "$baseVersion" ]; then
-        os="$base"
-      else
-        os="${baseVersion##*-}"
-      fi
-
-      # Prepare imageName and tag
-      if [ "$os" == "$base" ]; then
-        imageName="surnet/$base-wkhtmltopdf"
-      else
-        imageName="surnet/$os-$base-wkhtmltopdf"
-      fi
-      tag="$baseVersionClean-$version-$edition"
-      file="tmp/Dockerfile_$os-$base-$tag"
 
       # Apply patch based on edition
       case "$edition" in
@@ -60,6 +57,7 @@ for version in \
       # Check for base OS type (currently only alpine)
       case "$image" in
         alpine*)
+          os="alpine"
           template="Dockerfile-alpine.template"
           replaceRules+="
             s/%%IMAGE%%/$image/g;
@@ -68,6 +66,7 @@ for version in \
           "
         ;;
         *alpine*)
+          os="alpine"
           template="Dockerfile-alpine.template"
           replaceRules+="
             s/%%IMAGE%%/$image/g;
@@ -81,18 +80,28 @@ for version in \
         ;;
       esac
 
-      # Prepare Dockerfile
-      mkdir -p "tmp"
-      { cat "$template"; } > "$file"
-      sed -i.bak -e "$replaceRules" "$file"
+      # Prepare imageName and tag
+      if [ "$os" == "$base" ]; then
+        imageName="$base-wkhtmltopdf"
+      else
+        imageName="$os-$base-wkhtmltopdf"
+      fi
+      tag="$baseVersionClean-$version-$edition"
+      dir="archive/$imageName"
+      file="Dockerfile_$tag"
 
       # Build container if needed
-      if ! docker_tag_exists "$imageName" "$tag"; then
-        echo "Starting build for $imageName:$tag"
+      if ! docker_tag_exists "surnet/$imageName" "$tag"; then
+        # Prepare Dockerfile
+        mkdir -p "$dir"
+        { generated_warning; cat "$template"; } > "$dir/$file"
+        sed -i.bak -e "$replaceRules" "$dir/$file"
 
-        docker build . -f "$file" -t "$imageName:$tag" \
-        && docker push "$imageName:$tag" \
-        && echo "Successfully built and pushed $imageName:$tag" || echo "Building or pushing failed for $imageName:$tag"
+        # Build container
+        echo "Starting build for surnet/$imageName:$tag"
+        docker build . -f "$dir/$file" -t "surnet/$imageName:$tag" \
+        && docker push "surnet/$imageName:$tag" \
+        && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
       fi
 
     done
