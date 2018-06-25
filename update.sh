@@ -24,10 +24,10 @@ function docker_tag_exists() {
 
 # wkhtmltopdf versions
 for version in \
-  0.12.4 \
+  0.12.5 \
 ; do
 
-  # edition small (contains only wkhtmltopdf) or full (with wkhtmltopdf and lib)
+  # edition small (contains only wkhtmltopdf) or full (with wkhtmltopdf, wkhtmltoimage and lib)
   for edition in \
     small \
     full \
@@ -36,8 +36,8 @@ for version in \
     # Supported base images
     for image in \
       alpine:{3.6,3.7} \
-      node:{8.9.4,9.4.0}-alpine \
-      python:3.6.4-alpine3.7 \
+      node:{8.11.3,9.11.2}-alpine \
+      python:3.6.5-alpine3.7 \
     ; do
       # Parse image string
       base="${image%%:*}"
@@ -47,10 +47,16 @@ for version in \
       # Apply patch based on edition
       case "$edition" in
         small)
-          replaceRules="s/%%EDITION%%/\&\& patch -i \/tmp\/patches\/wkhtmltopdf-buildconfig.patch \\\/g;"
+          replaceRules="
+            /%%EDITION1%%/d;
+            /%%EDITION2%%/d;
+          "
         ;;
         full)
-          replaceRules="/%%EDITION%%/d;"
+          replaceRules="
+            s/%%EDITION1%%/COPY --from=builder \/bin\/wkhtmltoimage \/bin\/wkhtmltoimage/g;
+            s/%%EDITION2%%/COPY --from=builder \/lib\/libwkhtmltox* \/bin\//g;
+          "
         ;;
       esac
 
@@ -72,6 +78,28 @@ for version in \
             s/%%IMAGE%%/$image/g;
             s/%%WKHTMLTOXVERSION%%/$version/g;
             /%%END%%/d;
+          "
+        ;;
+        *)
+          echo "WARNING: OS Type not supported"
+          exit
+        ;;
+      esac
+
+      case "$image" in
+        alpine*)
+          replaceRules+="
+            s/%%BUILDER%%/$image/g;
+          "
+        ;;
+        node*)
+          replaceRules+="
+            s/%%BUILDER%%/alpine:3.6/g;
+          "
+        ;;
+        python*)
+          replaceRules+="
+            s/%%BUILDER%%/alpine:3.7/g;
           "
         ;;
         *)
