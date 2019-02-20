@@ -32,6 +32,15 @@ The tags represent version numbers which follow the format:
 
 e.g. `3.6-0.12.4-small`
 
+### Important notice
+
+For some versions there is a tag available with a `-font` at the end.
+These versions contain a fix for an issue which prevented the usage of other fonts except those included in the html (e.g. Google Fonts).
+
+This fix will be included in all newer versions.
+
+Further information: [Surnet/docker-wkhtmltopdf#1](https://github.com/Surnet/docker-wkhtmltopdf/issues/1)
+
 ## Editions
 
 There are two editions available for each version.
