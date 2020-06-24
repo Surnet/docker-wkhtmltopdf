@@ -24,7 +24,7 @@ function docker_tag_exists() {
 
 # wkhtmltopdf versions
 for version in \
-  0.12.5 \
+  0.12.6 \
 ; do
 
   # edition small (contains only wkhtmltopdf) or full (with wkhtmltopdf, wkhtmltoimage and lib)
@@ -36,7 +36,7 @@ for version in \
     # Supported base images
     for image in \
       alpine:3.10 \
-      node:12.14.1-alpine3.10 \
+      node:12.18.1-alpine3.10 \
       python:3.7.3-alpine3.10 \
     ; do
       # Parse image string
