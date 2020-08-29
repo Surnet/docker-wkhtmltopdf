@@ -126,10 +126,10 @@ for version in \
         sed -i.bak -e "$replaceRules" "$dir/$file"
 
         # Build container
-        echo "Starting build for surnet/$imageName:$tag"
-        docker build . -f "$dir/$file" -t "surnet/$imageName:$tag" \
-        && docker push "surnet/$imageName:$tag" \
-        && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
+        # echo "Starting build for surnet/$imageName:$tag"
+        # docker build . -f "$dir/$file" -t "surnet/$imageName:$tag" \
+        # && docker push "surnet/$imageName:$tag" \
+        # && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
       fi
 
     done
