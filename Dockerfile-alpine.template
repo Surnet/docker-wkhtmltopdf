@@ -8,6 +8,9 @@ ENV WKHTMLTOX_VERSION=%%WKHTMLTOXVERSION%%
 RUN mkdir -p /tmp/patches
 COPY conf/* /tmp/patches/
 
+# Alpine 3.11 and higher versions have g++ v9+ in their repositories which breaks the build
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.10/main' >> /etc/apk/repositories
+
 # Install needed packages
 RUN apk add --no-cache \
   libstdc++ \
@@ -24,7 +27,7 @@ RUN apk add --no-cache \
   ttf-liberation \
   ttf-ubuntu-font-family \
 && apk add --no-cache --virtual .build-deps \
-  g++ \
+  g++=8.3.0-r0 \
   git \
   gtk+ \
   gtk+-dev \
@@ -172,8 +175,11 @@ RUN apk add --no-cache \
 # Image
 FROM %%IMAGE%%
 
+# Alpine 3.11 and higher versions have libstdc++ v9+ in their repositories which breaks the build
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.10/main' >> /etc/apk/repositories
+
 RUN apk add --no-cache \
-  libstdc++ \
+  libstdc++=8.3.0-r0 \
   libx11 \
   libxrender \
   libxext \
