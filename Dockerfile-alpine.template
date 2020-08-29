@@ -51,6 +51,7 @@ RUN apk add --no-cache \
 && patch -p1 -i /tmp/patches/qt-musl-iconv-no-bom.patch \
 && patch -p1 -i /tmp/patches/qt-recursive-global-mutex.patch \
 && patch -p1 -i /tmp/patches/qt-gcc6.patch \
+&& patch -p1 -i /tmp/patches/qt-gcc9-foreach.patch \
 \
 # Modify qmake config
 && sed -i "s|-O2|$CXXFLAGS|" mkspecs/common/g++.conf \
