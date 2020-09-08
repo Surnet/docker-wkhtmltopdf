@@ -5,7 +5,7 @@
 #
 
 # Image
-FROM alpine:3.12 as builder
+FROM alpine:3.11 as builder
 
 # Environment variables
 ENV WKHTMLTOX_VERSION=0.12.6
@@ -179,7 +179,7 @@ RUN apk add --no-cache \
 && apk del .build-deps
 
 # Image
-FROM node:12.18.3-alpine3.12
+FROM node:12.18.3-alpine3.11
 
 # Alpine 3.11 and higher versions have libstdc++ v9+ in their repositories which breaks the build
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/v3.10/main' >> /etc/apk/repositories
