@@ -48,8 +48,10 @@ There are two editions available for each version.
 
 This image can be used as a base for your project or directly used via bash.
 
-For a list of available versions please click [here](https://hub.docker.com/r/surnet/alpine-wkhtmltopdf/tags/).
+For a list of available versions please see the page on [Docker Hub](https://hub.docker.com/r/surnet/alpine-wkhtmltopdf/tags/) or the [GitHub Container Registry](https://github.com/orgs/Surnet/packages/container/package/alpine-wkhtmltopdf).
 If a version you would like is missing please open an issue on this repo.
+
+#### Docker Hub
 
 ```yaml
 FROM surnet/alpine-wkhtmltopdf:<version>
@@ -59,6 +61,16 @@ FROM surnet/alpine-wkhtmltopdf:<version>
 docker run surnet/alpine-wkhtmltopdf:<version> google.com - > test.pdf
 ```
 
+#### GitHub Container Registry
+
+```yaml
+FROM ghcr.io/surnet/alpine-wkhtmltopdf:<version>
+```
+
+```bash
+docker run ghcr.io/surnet/alpine-wkhtmltopdf:<version> google.com - > test.pdf
+```
+
 ### surnet/alpine-node-wkhtmltopdf
 
 [![Docker Stars](https://img.shields.io/docker/stars/surnet/alpine-node-wkhtmltopdf.svg)](https://hub.docker.com/r/surnet/alpine-node-wkhtmltopdf/)
@@ -66,11 +78,19 @@ docker run surnet/alpine-wkhtmltopdf:<version> google.com - > test.pdf
 
 This image can be used as a base for your NodeJS project.
 
-For a list of available versions please click [here](https://hub.docker.com/r/surnet/alpine-node-wkhtmltopdf/tags/).
+For a list of available versions please see the page on [Docker Hub](https://hub.docker.com/r/surnet/alpine-node-wkhtmltopdf/tags/) or the [GitHub Container Registry](https://github.com/orgs/Surnet/packages/container/package/alpine-node-wkhtmltopdf).
 If a version you would like is missing please open an issue on this repo.
+
+#### Docker Hub
 
 ```yaml
 FROM surnet/alpine-node-wkhtmltopdf:<version>
+```
+
+#### GitHub Container Registry
+
+```yaml
+FROM ghcr.io/surnet/alpine-node-wkhtmltopdf:<version>
 ```
 
 ### surnet/alpine-python-wkhtmltopdf
@@ -80,11 +100,19 @@ FROM surnet/alpine-node-wkhtmltopdf:<version>
 
 This image can be used as a base for your Python project.
 
-For a list of available versions please click [here](https://hub.docker.com/r/surnet/alpine-python-wkhtmltopdf/tags/).
+For a list of available versions please see the page on [Docker Hub](https://hub.docker.com/r/surnet/alpine-python-wkhtmltopdf/tags/) or the [GitHub Container Registry](https://github.com/orgs/Surnet/packages/container/package/alpine-python-wkhtmltopdf).
 If a version you would like is missing please open an issue on this repo.
+
+#### Docker Hub
 
 ```yaml
 FROM surnet/alpine-python-wkhtmltopdf:<version>
+```
+
+#### GitHub Container Registry
+
+```yaml
+FROM ghcr.io/surnet/alpine-python-wkhtmltopdf:<version>
 ```
 
 ## Other Images
