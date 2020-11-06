@@ -129,6 +129,8 @@ for version in \
         echo "Starting build for surnet/$imageName:$tag"
         docker build . -f "$dir/$file" -t "surnet/$imageName:$tag" \
         && docker push "surnet/$imageName:$tag" \
+        && docker tag "surnet/$imageName:$tag" "ghcr.io/surnet/$imageName:$tag" \
+        && docker push "ghcr.io/surnet/$imageName:$tag" \
         && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
       fi
 
