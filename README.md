@@ -30,7 +30,7 @@ The tags represent version numbers which follow the format:
 - `<2>` matches the wkhtmltopdf version.
 - `<3>` matches the Edition (see next chapter).
 
-e.g. `3.6-0.12.4-small`
+e.g. `3.12.4-0.12.6-small`
 
 ## Editions
 
