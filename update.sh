@@ -127,10 +127,8 @@ for version in \
 
         # Build container
         echo "Starting build for surnet/$imageName:$tag"
-        docker build . -f "$dir/$file" -t "surnet/$imageName:$tag" \
-        && docker push "surnet/$imageName:$tag" \
-        && docker tag "surnet/$imageName:$tag" "ghcr.io/surnet/$imageName:$tag" \
-        && docker push "ghcr.io/surnet/$imageName:$tag" \
+        docker buildx build . -f "$dir/$file" -t "surnet/$imageName:$tag" --platform linux/amd64,linux/arm64 --push \
+        && docker buildx build . -f "$dir/$file" -t "ghcr.io/surnet/$imageName:$tag" --platform linux/amd64,linux/arm64 --push \
         && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
       fi
 
