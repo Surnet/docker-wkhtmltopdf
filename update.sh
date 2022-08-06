@@ -35,7 +35,7 @@ for version in \
 
     # Supported base images
     for image in \
-      alpine:3.15.0 \
+      alpine:3.16.0 \
       node:16.13.1-alpine3.13 \
       python:3.9.9-alpine3.13 \
     ; do
