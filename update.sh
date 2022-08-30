@@ -35,7 +35,6 @@ for version in \
 
     # Supported base images
     for image in \
-      alpine:3.16.0 \
       node:16.16.0-alpine3.16 \
       python:3.10.6-alpine3.16 \
     ; do
@@ -119,18 +118,16 @@ for version in \
       file="Dockerfile_$tag"
 
       # Build container if needed
-      if ! docker_tag_exists "surnet/$imageName" "$tag"; then
-        # Prepare Dockerfile
-        mkdir -p "$dir"
-        { generated_warning; cat "$template"; } > "$dir/$file"
-        sed -i.bak -e "$replaceRules" "$dir/$file"
+      # Prepare Dockerfile
+      mkdir -p "$dir"
+      { generated_warning; cat "$template"; } > "$dir/$file"
+      sed -i.bak -e "$replaceRules" "$dir/$file"
 
-        # Build container
-        echo "Starting build for surnet/$imageName:$tag"
-        docker buildx build . -f "$dir/$file" -t "surnet/$imageName:$tag" --platform linux/amd64,linux/arm64 --push \
-        && docker buildx build . -f "$dir/$file" -t "ghcr.io/surnet/$imageName:$tag" --platform linux/amd64,linux/arm64 --push \
-        && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
-      fi
+      # Build container
+      echo "Starting build for surnet/$imageName:$tag"
+      docker buildx build . -f "$dir/$file" -t "surnet/$imageName:$tag" --platform linux/amd64,linux/arm64 --push \
+      && docker buildx build . -f "$dir/$file" -t "ghcr.io/surnet/$imageName:$tag" --platform linux/amd64,linux/arm64 --push \
+      && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
 
     done
 
