@@ -35,8 +35,9 @@ for version in \
 
     # Supported base images
     for image in \
-      node:16.16.0-alpine3.16 \
-      python:3.10.6-alpine3.16 \
+      alpine:3.16.2 \
+      node:18.12.0-alpine3.16 \
+      python:3.11.0-alpine3.16 \
     ; do
       # Parse image string
       base="${image%%:*}"
