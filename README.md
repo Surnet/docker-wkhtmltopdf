@@ -118,43 +118,39 @@ FROM ghcr.io/surnet/alpine-python-wkhtmltopdf:<version>
 ## Other Images
 
 If you are using another image based on alpine you can use the following Dockerfile as a starting point.
-Just replace the `openjdk:8-jdk-alpine3.9` with the alpine based image you would like to use.
-If you do not need wkhtmltoimage or the libs omit the last two lines.
+Just replace the `openjdk:19-jdk-alpine3.16` with the alpine based image you would like to use.
+If you do not need wkhtmltoimage or the libs edit last line.
 
 ```Dockerfile
-FROM surnet/alpine-wkhtmltopdf:3.9-0.12.5-full as wkhtmltopdf
-FROM openjdk:8-jdk-alpine3.9
+FROM surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
+FROM openjdk:19-jdk-alpine3.16
 
 # Install dependencies for wkhtmltopdf
 RUN apk add --no-cache \
-  libstdc++ \
-  libx11 \
-  libxrender \
-  libxext \
-  libssl1.1 \
-  ca-certificates \
-  fontconfig \
-  freetype \
-  ttf-dejavu \
-  ttf-droid \
-  ttf-freefont \
-  ttf-liberation \
-  ttf-ubuntu-font-family \
-&& apk add --no-cache --virtual .build-deps \
-  msttcorefonts-installer \
-\
-# Install microsoft fonts
-&& update-ms-fonts \
-&& fc-cache -f \
-\
-# Clean up when done
-&& rm -rf /tmp/* \
-&& apk del .build-deps
+    libstdc++ \
+    libx11 \
+    libxrender \
+    libxext \
+    libssl1.1 \
+    ca-certificates \
+    fontconfig \
+    freetype \
+    ttf-dejavu \
+    ttf-droid \
+    ttf-freefont \
+    ttf-liberation \
+    # more fonts
+  && apk add --no-cache --virtual .build-deps \
+    msttcorefonts-installer \
+  # Install microsoft fonts
+  && update-ms-fonts \
+  && fc-cache -f \
+  # Clean up when done
+  && rm -rf /tmp/* \
+  && apk del .build-deps
 
 # Copy wkhtmltopdf files from docker-wkhtmltopdf image
-COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
-COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
-COPY --from=wkhtmltopdf /bin/libwkhtmltox* /bin/
+COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltoimage /bin/libwkhtmltox.so /bin/
 ```
 
 ## Contribute
