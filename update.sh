@@ -39,7 +39,7 @@ for version in \
     # Supported base images
     for image in \
       alpine:3.19.0 \
-      node:18.19.0-alpine3.19 \
+      node:20.10.0-alpine3.19 \
       python:3.12.1-alpine3.19 \
     ; do
       # Parse image string
