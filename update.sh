@@ -2,6 +2,9 @@
 
 trap killgroup SIGINT
 
+action=${1:-push}
+platform=${2:-linux/amd64,linux/arm64}
+
 function killgroup() {
   echo killing...
   kill 0
@@ -35,9 +38,9 @@ for version in \
 
     # Supported base images
     for image in \
-      alpine:3.18.0 \
-      node:18.16.1-alpine3.18 \
-      python:3.11.4-alpine3.18 \
+      alpine:3.19.0 \
+      node:20.10.0-alpine3.19 \
+      python:3.12.1-alpine3.19 \
     ; do
       # Parse image string
       base="${image%%:*}"
@@ -94,12 +97,12 @@ for version in \
         ;;
         node*)
           replaceRules+="
-            s/%%BUILDER%%/alpine:3.18/g;
+            s/%%BUILDER%%/alpine:3.19/g;
           "
         ;;
         python*)
           replaceRules+="
-            s/%%BUILDER%%/alpine:3.18/g;
+            s/%%BUILDER%%/alpine:3.19/g;
           "
         ;;
         *)
@@ -127,8 +130,8 @@ for version in \
 
         # Build container
         echo "Starting build for surnet/$imageName:$tag"
-        docker buildx build . -f "$dir/$file" -t "surnet/$imageName:$tag" --platform linux/amd64,linux/arm64 --push \
-        && docker buildx build . -f "$dir/$file" -t "ghcr.io/surnet/$imageName:$tag" --platform linux/amd64,linux/arm64 --push \
+        docker buildx build . -f "$dir/$file" -t "surnet/$imageName:$tag" --platform ${platform} --${action} \
+        && docker buildx build . -f "$dir/$file" -t "ghcr.io/surnet/$imageName:$tag" --platform ${platform} --${action} \
         && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
       fi
 
