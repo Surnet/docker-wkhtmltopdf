@@ -120,9 +120,10 @@ FROM ghcr.io/surnet/alpine-python-wkhtmltopdf:<version>
 If you are using another image based on alpine you can use the following Dockerfile as a starting point.
 Just replace the `openjdk:19-jdk-alpine3.16` with the alpine based image you would like to use.
 If you do not need wkhtmltoimage or the libs omit the last two lines.
+Please check if there is a newer version of `surnet/alpine-wkhtmltopdf` to use than the one described below.
 
 ```Dockerfile
-FROM surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
+FROM surnet/alpine-wkhtmltopdf:3.19.0-0.12.6-full as wkhtmltopdf
 FROM openjdk:19-jdk-alpine3.16
 
 # Install dependencies for wkhtmltopdf
@@ -131,7 +132,7 @@ RUN apk add --no-cache \
     libx11 \
     libxrender \
     libxext \
-    libssl1.1 \
+    libssl3 \
     ca-certificates \
     fontconfig \
     freetype \
