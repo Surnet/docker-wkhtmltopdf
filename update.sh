@@ -22,7 +22,7 @@ function generated_warning() {
 }
 
 function docker_tag_exists() {
-  curl --silent -f -lSL https://index.docker.io/v1/repositories/$1/tags/$2 &> /dev/null
+  docker manifest inspect $1:$2 &> /dev/null && docker manifest inspect ghcr.io/$1:$2 &> /dev/null
 }
 
 # wkhtmltopdf versions
@@ -39,7 +39,7 @@ for version in \
     # Supported base images
     for image in \
       alpine:3.19.0 \
-      node:20.10.0-alpine3.19 \
+      node:20.11.0-alpine3.19 \
       python:3.12.1-alpine3.19 \
     ; do
       # Parse image string
