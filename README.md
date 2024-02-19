@@ -121,6 +121,7 @@ If you are using another image based on alpine you can use the following Dockerf
 Just replace the `openjdk:19-jdk-alpine3.16` with the alpine based image you would like to use.
 If you do not need wkhtmltoimage or the libs omit the last two lines.
 Please check if there is a newer version of `surnet/alpine-wkhtmltopdf` to use than the one described below.
+Also be aware that the below example does not work on an ARM-architecture.
 
 ```Dockerfile
 FROM surnet/alpine-wkhtmltopdf:3.19.0-0.12.6-full as wkhtmltopdf
@@ -155,6 +156,7 @@ COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
 COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
 COPY --from=wkhtmltopdf /bin/libwkhtmltox* /bin/
 ```
+
 
 ## Contribute
 
