@@ -124,7 +124,7 @@ Please check if there is a newer version of `surnet/alpine-wkhtmltopdf` to use t
 
 ```Dockerfile
 FROM surnet/alpine-wkhtmltopdf:3.19.0-0.12.6-full as wkhtmltopdf
-FROM openjdk:19-jdk-alpine3.16
+FROM mcr.microsoft.com/dotnet/aspnet:7.0.17-alpine3.19
 
 # Install dependencies for wkhtmltopdf
 RUN apk add --no-cache \
