@@ -38,9 +38,9 @@ for version in \
 
     # Supported base images
     for image in \
-      alpine:3.19.1 \
-      node:20.12.0-alpine3.19 \
-      python:3.12.2-alpine3.19 \
+      alpine:3.20.0 \
+      node:20.14.0-alpine3.20 \
+      python:3.12.3-alpine3.20 \
     ; do
       # Parse image string
       base="${image%%:*}"
@@ -97,12 +97,12 @@ for version in \
         ;;
         node*)
           replaceRules+="
-            s/%%BUILDER%%/alpine:3.19/g;
+            s/%%BUILDER%%/alpine:3.20/g;
           "
         ;;
         python*)
           replaceRules+="
-            s/%%BUILDER%%/alpine:3.19/g;
+            s/%%BUILDER%%/alpine:3.20/g;
           "
         ;;
         *)
