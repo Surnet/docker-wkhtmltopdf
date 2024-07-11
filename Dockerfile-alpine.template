@@ -1,5 +1,5 @@
 # Image
-FROM %%BUILDER%% as builder
+FROM %%BUILDER%% AS builder
 
 # Environment variables
 ENV WKHTMLTOX_VERSION=%%WKHTMLTOXVERSION%%
