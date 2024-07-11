@@ -1,8 +1,14 @@
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
+#
+# PLEASE DO NOT EDIT IT DIRECTLY.
+#
+
 # Image
-FROM %%BUILDER%% AS builder
+FROM alpine:3.20.1 as builder
 
 # Environment variables
-ENV WKHTMLTOX_VERSION=%%WKHTMLTOXVERSION%%
+ENV WKHTMLTOX_VERSION=0.12.6
 
 # Copy patches
 RUN mkdir -p /tmp/patches
@@ -172,7 +178,7 @@ RUN apk add --no-cache \
 && apk del .build-deps
 
 # Image
-FROM %%IMAGE%%
+FROM alpine:3.20.1
 
 RUN apk add --no-cache \
   libstdc++ \
@@ -199,7 +205,7 @@ RUN apk add --no-cache \
 && apk del .build-deps
 
 COPY --from=builder /bin/wkhtmltopdf /bin/wkhtmltopdf
-%%EDITION1%%
-%%EDITION2%%
+COPY --from=builder /bin/wkhtmltoimage /bin/wkhtmltoimage
+COPY --from=builder /lib/libwkhtmltox* /bin/
 
-%%END%%
+ENTRYPOINT ["wkhtmltopdf"]
