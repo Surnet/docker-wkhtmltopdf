@@ -41,6 +41,8 @@ for version in \
       alpine:3.20.1 \
       node:20.15.1-alpine3.20 \
       python:3.12.4-alpine3.20 \
+      golang:1.22.5-alpine3.20 \
+      base:3.20.1 \
     ; do
       # Parse image string
       base="${image%%:*}"
@@ -74,6 +76,15 @@ for version in \
             s/%%END%%/ENTRYPOINT [\"wkhtmltopdf\"]/g;
           "
         ;;
+        base*)
+          os="alpine"
+          template="Dockerfile-alpine.template"
+          replaceRules+="
+            s/%%IMAGE%%/$os:$baseVersion/g;
+            s/%%WKHTMLTOXVERSION%%/$version/g;
+            /%%END%%/d;
+          "
+        ;;
         *alpine*)
           os="alpine"
           template="Dockerfile-alpine.template"
@@ -96,6 +107,16 @@ for version in \
           "
         ;;
         node*)
+          replaceRules+="
+            s/%%BUILDER%%/alpine:3.20/g;
+          "
+        ;;
+        base*)
+          replaceRules+="
+            s/%%BUILDER%%/alpine:3.20/g;
+          "
+        ;;
+        golang*)
           replaceRules+="
             s/%%BUILDER%%/alpine:3.20/g;
           "
@@ -129,10 +150,10 @@ for version in \
         sed -i.bak -e "$replaceRules" "$dir/$file"
 
         # Build container
-        echo "Starting build for surnet/$imageName:$tag"
-        docker buildx build . -f "$dir/$file" -t "surnet/$imageName:$tag" --platform ${platform} --${action} \
-        && docker buildx build . -f "$dir/$file" -t "ghcr.io/surnet/$imageName:$tag" --platform ${platform} --${action} \
-        && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
+        # echo "Starting build for surnet/$imageName:$tag"
+        # docker buildx build . -f "$dir/$file" -t "surnet/$imageName:$tag" --platform ${platform} --${action} \
+        # && docker buildx build . -f "$dir/$file" -t "ghcr.io/surnet/$imageName:$tag" --platform ${platform} --${action} \
+        # && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
       fi
 
     done
