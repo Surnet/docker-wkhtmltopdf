@@ -150,10 +150,10 @@ for version in \
         sed -i.bak -e "$replaceRules" "$dir/$file"
 
         # Build container
-        # echo "Starting build for surnet/$imageName:$tag"
-        # docker buildx build . -f "$dir/$file" -t "surnet/$imageName:$tag" --platform ${platform} --${action} \
-        # && docker buildx build . -f "$dir/$file" -t "ghcr.io/surnet/$imageName:$tag" --platform ${platform} --${action} \
-        # && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
+        echo "Starting build for surnet/$imageName:$tag"
+        docker buildx build . -f "$dir/$file" -t "surnet/$imageName:$tag" --platform ${platform} --${action} \
+        && docker buildx build . -f "$dir/$file" -t "ghcr.io/surnet/$imageName:$tag" --platform ${platform} --${action} \
+        && echo "Successfully built and pushed surnet/$imageName:$tag" || echo "Building or pushing failed for surnet/$imageName:$tag"
       fi
 
     done
