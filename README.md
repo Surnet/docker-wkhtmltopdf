@@ -123,8 +123,8 @@ If you do not need wkhtmltoimage or the libs omit the last two lines.
 Please check if there is a newer version of `surnet/alpine-wkhtmltopdf` to use than the one described below.
 
 ```Dockerfile
-FROM surnet/alpine-wkhtmltopdf:3.19.0-0.12.6-full as wkhtmltopdf
-FROM mcr.microsoft.com/dotnet/aspnet:7.0.17-alpine3.19
+FROM surnet/alpine-wkhtmltopdf:3.20.2-0.12.6-full as wkhtmltopdf
+FROM golang:1.22.5-alpine3.20
 
 # Install dependencies for wkhtmltopdf
 RUN apk add --no-cache \
@@ -153,7 +153,7 @@ RUN apk add --no-cache \
 # Copy wkhtmltopdf files from docker-wkhtmltopdf image
 COPY --from=wkhtmltopdf /bin/wkhtmltopdf /bin/wkhtmltopdf
 COPY --from=wkhtmltopdf /bin/wkhtmltoimage /bin/wkhtmltoimage
-COPY --from=wkhtmltopdf /bin/libwkhtmltox* /bin/
+COPY --from=wkhtmltopdf /lib/libwkhtmltox* /lib/
 ```
 
 ## Contribute
