@@ -58,7 +58,7 @@ for version in \
         full)
           replaceRules="
             s/%%EDITION1%%/COPY --from=builder \/bin\/wkhtmltoimage \/bin\/wkhtmltoimage/g;
-            s/%%EDITION2%%/COPY --from=builder \/lib\/libwkhtmltox* \/bin\//g;
+            s/%%EDITION2%%/COPY --from=builder \/lib\/libwkhtmltox* \/lib\//g;
           "
         ;;
       esac
