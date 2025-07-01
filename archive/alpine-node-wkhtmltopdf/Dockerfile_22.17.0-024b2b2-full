@@ -48,7 +48,7 @@ RUN apk add --no-cache \
 # Download source files
 && git clone --recursive https://github.com/wkhtmltopdf/wkhtmltopdf.git /tmp/wkhtmltopdf \
 && cd /tmp/wkhtmltopdf \
-&& git checkout tags/0.12.6 \
+&& git checkout 024b2b2 \
 \
 # Apply patches
 && cd /tmp/wkhtmltopdf/qt \
