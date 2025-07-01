@@ -1,9 +1,6 @@
 # Image
 FROM %%BUILDER%% AS builder
 
-# Environment variables
-ENV WKHTMLTOX_VERSION=%%WKHTMLTOXVERSION%%
-
 # Copy patches
 RUN mkdir -p /tmp/patches
 COPY conf/* /tmp/patches/
@@ -45,7 +42,7 @@ RUN apk add --no-cache \
 # Download source files
 && git clone --recursive https://github.com/wkhtmltopdf/wkhtmltopdf.git /tmp/wkhtmltopdf \
 && cd /tmp/wkhtmltopdf \
-&& git checkout tags/$WKHTMLTOX_VERSION \
+&& git checkout %%WKHTMLTOXVERSION%% \
 \
 # Apply patches
 && cd /tmp/wkhtmltopdf/qt \
