@@ -27,7 +27,8 @@ function docker_tag_exists() {
 
 # wkhtmltopdf versions
 for version in \
-  0.12.6 \
+  tags/0.12.6 \
+  024b2b2 \
 ; do
 
   # edition small (contains only wkhtmltopdf) or full (with wkhtmltopdf, wkhtmltoimage and lib)
@@ -38,9 +39,9 @@ for version in \
 
     # Supported base images
     for image in \
-      alpine:3.21.3 \
-      node:22.15.0-alpine3.21 \
-      python:3.13.3-alpine3.21 \
+      alpine:3.22.0 \
+      node:22.17.0-alpine3.22 \
+      python:3.13.5-alpine3.21 \
     ; do
       # Parse image string
       base="${image%%:*}"
@@ -70,7 +71,7 @@ for version in \
           template="Dockerfile-alpine.template"
           replaceRules+="
             s/%%IMAGE%%/$image/g;
-            s/%%WKHTMLTOXVERSION%%/$version/g;
+            s|%%WKHTMLTOXVERSION%%|$version|g;
             s/%%END%%/ENTRYPOINT [\"wkhtmltopdf\"]/g;
           "
         ;;
@@ -79,7 +80,7 @@ for version in \
           template="Dockerfile-alpine.template"
           replaceRules+="
             s/%%IMAGE%%/$image/g;
-            s/%%WKHTMLTOXVERSION%%/$version/g;
+            s|%%WKHTMLTOXVERSION%%|$version|g;
             /%%END%%/d;
           "
         ;;
@@ -97,12 +98,12 @@ for version in \
         ;;
         node*)
           replaceRules+="
-            s/%%BUILDER%%/alpine:3.21/g;
+            s/%%BUILDER%%/alpine:3.22/g;
           "
         ;;
         python*)
           replaceRules+="
-            s/%%BUILDER%%/alpine:3.21/g;
+            s/%%BUILDER%%/alpine:3.22/g;
           "
         ;;
         *)
@@ -117,7 +118,7 @@ for version in \
       else
         imageName="$os-$base-wkhtmltopdf"
       fi
-      tag="$baseVersionClean-$version-$edition"
+      tag="$baseVersionClean-${version#tags/}-$edition"
       dir="archive/$imageName"
       file="Dockerfile_$tag"
 

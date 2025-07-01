@@ -1,5 +1,11 @@
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
+#
+# PLEASE DO NOT EDIT IT DIRECTLY.
+#
+
 # Image
-FROM %%BUILDER%% AS builder
+FROM alpine:3.22.0 AS builder
 
 # Copy patches
 RUN mkdir -p /tmp/patches
@@ -42,7 +48,7 @@ RUN apk add --no-cache \
 # Download source files
 && git clone --recursive https://github.com/wkhtmltopdf/wkhtmltopdf.git /tmp/wkhtmltopdf \
 && cd /tmp/wkhtmltopdf \
-&& git checkout %%WKHTMLTOXVERSION%% \
+&& git checkout 024b2b2 \
 \
 # Apply patches
 && cd /tmp/wkhtmltopdf/qt \
@@ -169,7 +175,7 @@ RUN apk add --no-cache \
 && apk del .build-deps
 
 # Image
-FROM %%IMAGE%%
+FROM alpine:3.22.0
 
 RUN apk add --no-cache \
   libstdc++ \
@@ -196,7 +202,5 @@ RUN apk add --no-cache \
 && apk del .build-deps
 
 COPY --from=builder /bin/wkhtmltopdf /bin/wkhtmltopdf
-%%EDITION1%%
-%%EDITION2%%
 
-%%END%%
+ENTRYPOINT ["wkhtmltopdf"]
