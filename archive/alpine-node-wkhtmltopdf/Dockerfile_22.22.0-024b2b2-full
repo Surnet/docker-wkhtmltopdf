@@ -176,7 +176,7 @@ RUN apk add --no-cache \
 && apk del .build-deps
 
 # Image
-FROM python:3.13.11-alpine3.23
+FROM node:22.22.0-alpine3.23
 
 RUN apk add --no-cache \
   libstdc++ \
@@ -203,4 +203,6 @@ RUN apk add --no-cache \
 && apk del .build-deps
 
 COPY --from=builder /bin/wkhtmltopdf /bin/wkhtmltopdf
+COPY --from=builder /bin/wkhtmltoimage /bin/wkhtmltoimage
+COPY --from=builder /lib/libwkhtmltox* /lib/
 

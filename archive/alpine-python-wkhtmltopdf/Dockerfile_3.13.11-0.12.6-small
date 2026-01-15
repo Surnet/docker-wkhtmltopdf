@@ -28,10 +28,11 @@ RUN apk add --no-cache \
   ttf-droid \
   ttf-freefont \
   ttf-liberation \
+&& apk add --no-cache --no-scripts --virtual .build-deps \
+  gtk+2.0 \
 && apk add --no-cache --virtual .build-deps \
   g++=8.3.0-r0 \
   git \
-  gtk+2.0 \
   gtk+2.0-dev \
   make \
   mesa-dev \
